@@ -1,0 +1,16 @@
+include ':app', ':myplugin', ':buildSrc'
+
+initMinshengGradleEnvironment()
+def initMinshengGradleEnvironment(){
+    //属性值从local.properites中读取
+    Properties properties = new Properties()
+    File propertyFile = new File(rootDir.getAbsolutePath() +"/local.properties")
+    properties.load(propertyFile.newDataInputStream())
+    //gradle就是gradle对象。它默认是Settings和Project的成员变量。可直接获取
+    //ext前缀，表明操作的是外置属性。api是一个新的属性名。前面说过，只在
+    //第一次定义或者设置它的时候需要ext前缀
+    gradle.ext.api =properties.getProperty('sdk.api')
+
+    println gradle.api  //再次存取api的时候，就不需要ext前缀了
+
+}
